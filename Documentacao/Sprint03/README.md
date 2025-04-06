@@ -1,62 +1,142 @@
-# API ADS 6º Semestre
 
-# Projeto Plataforma de Treinamento de IA
+
+# Sprint 3
+
 
 <p align="center">
       <img src="/Documentacao/img/fullstack.png" alt="Logo da Equipe FullStack">
 
 
+<hr>
+<br>
+<p align="center">
+  <a href ="#mvp"> MVP da Sprint</a>  | 
+  <a href ="#dor"> DOR </a>  |
+  <a href ="#dod"> DOD </a>  |
+  <a href ="#backlog"> Backlog da Sprint</a>  
+</p>
 
-# Padrões de commits 📜
+</p>
 
-De acordo com a documentação do **[Conventional Commits](https://www.conventionalcommits.org/pt-br)**, commits semânticos são uma convenção simples para ser utilizada nas mensagens de commit. Essa convenção define um conjunto de regras para criar um histórico de commit explícito, o que facilita a criação de ferramentas automatizadas.
+<span id="mvp">
 
-Esses commits auxiliarão a equipe a entender de forma facilitada quais alterações foram realizadas no trecho de código que foi commitado.
+## :bookmark_tabs: MVP da Sprint
 
-Essa identificação ocorre por meio de uma palavra que identifica se aquele commit realizado se trata de uma alteração de código, atualização de pacotes, documentação, alteração de visual, teste.
+A Sprint 1 teve como principal objetivo a entrega do **MVP (Produto Mínimo Viável)** da Plataforma de Treinamento de IA, estabelecendo as bases essenciais para a interação entre usuário e sistema.  
+
+Nesta etapa inicial, desenvolvemos uma **interface funcional e intuitiva**, onde o usuário pode:  
+- **Inserir uma pergunta** em um campo dedicado;  
+- **Enviar a consulta** para processamento por dois modelos de linguagem (LLMs);  
+- **Visualizar as respostas geradas**, exibidas lado a lado para comparação imediata.  
+
+Essa funcionalidade representa o **núcleo da aplicação**, pois permite não apenas a interação básica, mas também **inicia o processo de avaliação comparativa** das respostas — um fundamento crítico para as próximas etapas de desenvolvimento, como feedback estruturado e aprimoramento dos modelos.  
+
+Com essa entrega, garantimos que o sistema esteja **operacional, usável e pronto para evoluir** com as funcionalidades planejadas nas sprints seguintes.  
+
 
 <br>
 
-## Tipo e descrição 📝
 
+<span id="dor">
 
+## :badger: Definição de DOR (Definition of Ready - DOR)
 
-O **type** é responsável por nos dizer qual o tipo de alteração ou iteração está sendo feita. Das regras da convenção, temos os seguintes tipos:
+O DOR define quando uma tarefa está pronta para ser trabalhada em uma sprint. O objetivo dessa Sprint foi implementar o fluxo básico de envio de prompts e exibição de respostas dos LLMs.
 
-- **test**: Indica qualquer tipo de criação ou alteração de códigos de teste.  
-  **Exemplo:** test: Criação de testes unitários.
+**Tarefa:** Frontend da tela de prompts (Vue.js) - Criar interface com campo de input e botão de envio.
 
-- **feat**: Indica o desenvolvimento de uma nova feature ao projeto.  
-  **Exemplo:** feat: Acréscimo de um serviço, funcionalidade, endpoint, etc.
+**Critérios de Aceitação:** 
+1. Layout responsivo
+2. Validação de input
+3. Feedback visual durante loading
 
-- **refactor**: Usado quando houver uma refatoração de código que não tenha qualquer tipo de impacto na lógica/regras de negócio do sistema.  
-  **Exemplo:** refactor: Mudanças de código após um code review.
+**Tarefa:** Backend da tela de prompts (FastAPI) - Criar endpoint POST /chat.
 
-- **style**: Empregado quando há mudanças de formatação e estilo do código que não alteram o sistema de nenhuma forma.  
-  **Exemplo:** style: Mudar o style-guide, mudar de convenção lint, arrumar indentações, remover espaços em brancos, remover comentários, etc.
+**Critérios de Aceitação:**
+1. Receber JSON com prompt
+2. Retornar status 200 (OK)
+3. Retornar as respostas dos LLMs (OpenAI e Gemini)
 
-- **fix**: Utilizado quando há correção de erros que estão gerando bugs no sistema.  
-  **Exemplo:** fix: Aplicar tratativa para uma função que não está tendo o comportamento esperado e retornando erro.
+**Tarefa:** Integração com OpenAI - Configurar API e formatar respostas.
 
-- **chore**: Indica mudanças no projeto que não afetem o sistema ou arquivos de testes. São mudanças de desenvolvimento.  
-  **Exemplo:** chore: Mudar regras do eslint, adicionar prettier, adicionar mais extensões de arquivos ao `.gitignore`.
+**Critérios de Aceitação:**
+1. Timeout de 15s
+2. Tratamento de erros
+3. Formato padrão de resposta
 
-- **docs**: Usado quando há mudanças na documentação do projeto.  
-  **Exemplo:** docs: Adicionar informações na documentação da API, mudar o README, etc.
+**Tarefa:** Integração com Gemini - Configurar API e formatar respostas.
 
-- **build**: Utilizada para indicar mudanças que afetam o processo de build do projeto ou dependências externas.  
-  **Exemplo:** build: Gulp, adicionar/remover dependências do npm, etc.
+**Critérios de Aceitação:**
+1. Timeout de 15s
+2. Tratamento de erros
+3. Formato padrão de resposta 
 
-- **perf**: Indica uma alteração que melhorou a performance do sistema.  
-  **Exemplo:** perf: Alterar `ForEach` por `while`, melhorar a query ao banco, etc.
+**Tarefa:** Frontend das respostas (Vue.js) - Criar view com 2 colunas para exibição.
 
-- **ci**: Utilizada para mudanças nos arquivos de configuração de CI.  
-  **Exemplo:** ci: Circle, Travis, BrowserStack, etc.
+**Critérios de Aceitação:**
+1. Criação de componente que mostra a resposta
+2. O layout deve ser responsível
+3. Duas colunas devem mostrar as respostas dos LLMs recebido do backend
 
-- **revert**: Indica a reversão de um commit anterior.  
-  **Exemplo:** revert: Reverter um commit que introduziu um bug.
+**Tarefa:** Integração frontend-backend – frontend realizar requisição para as rotas do backend.
 
+**Critérios de Aceitação:**
+1. A página de prompt deverá realizar requisição POST com o input do usuário na rota /chat.
+2. A página de prompt deverá receber a resposta do backend e mostrar as respostas das LLMs usando o componente de resposta.
+3. Adicionar uma interface visual de loading enquanto o frontend espera a resposta do backend
+
+**Tarefa:** Banco de dados das avaliações das respostas (MongoDB) - Criar coleção avaliacao.
+
+Critérios de Aceitação:
+1. Criar coleção "avaliacao" no MongoDB com o seguinte schema: {
+    _id,
+    llm1,
+    llm2,
+    endereco_ip_user,
+    pergunta,
+    resposta_llm1,
+    resposta_llm2,
+    avaliacao_llm1,
+    avaliacao_llm2,
+    feedback_usuario,
+    melhor_performance
+}
+2. Criar modelo no FastApi que representa o schema avaliacao no banco.
 
 
 <br>
+
+
+<span id="dod">
+
+## :dog: Definição de DOD (Definition of Done - DOD)
+
+O DOD define quando uma tarefa está concluída e pronta para ser entregue. Para esta sprint, os critérios obrigatórios:
+
+1. Funcionalidade:
+- Usuário consegue enviar prompt e ver respostas lado a lado
+- Tempo máximo de resposta: 20s (somando ambos LLMs)
+
+2. Qualidade:
+- Código revisado via Pull Request
+
+3. Documentação:
+- Swagger dos endpoints POST: /chat, POST: /avaliacao, PUT: /avaliacao, GET: /avaliacao, DELETE: /avaliacao
+- README atualizado com instruções de deploy local
+
+
+<br>
+
+
+<span id="backlog">
+
+## :dart: Backlog da Sprint
+
+<p align="center">
+      <img src="/Documentacao/img/backlogs1.png" alt="Backlog da Sprint">
+
+
+
+
+
 
